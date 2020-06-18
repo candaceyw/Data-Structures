@@ -3,7 +3,7 @@ class Node:
         self.value = value
         self.next_node = next_node
 
-  def get_value(self):
+    def get_value(self):
         # returns the node's data
         return self.value
 
@@ -14,6 +14,7 @@ class Node:
     def set_next(self, new_next):
         # sets this node's `next` reference to `new_next`
         self.next_node = new_next
+
 
 class LinkedList:
     def __init__(self):
@@ -76,7 +77,6 @@ class LinkedList:
             # otherwise, go to the next node
             current_node = current_node.next_node
         return False
-
 
     def get_max(self):
         if self.head is None:
