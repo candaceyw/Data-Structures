@@ -3,6 +3,17 @@ class Node:
         self.value = value
         self.next_node = next_node
 
+  def get_value(self):
+        # returns the node's data
+        return self.value
+
+    def get_next(self):
+        # returns the thing pointed at by this node's `next` reference
+        return self.next_node
+
+    def set_next(self, new_next):
+        # sets this node's `next` reference to `new_next`
+        self.next_node = new_next
 
 class LinkedList:
     def __init__(self):
@@ -65,3 +76,20 @@ class LinkedList:
             # otherwise, go to the next node
             current_node = current_node.next_node
         return False
+
+
+    def get_max(self):
+        if self.head is None:
+            return None
+
+        max_so_far = self.head.get_value()
+
+        current = self.head.get_next()
+
+        while current is not None:
+            if current.get_value() > max_so_far:
+                max_so_far = current.get_value()
+
+            current = current.get_next()
+
+        return max_so_far

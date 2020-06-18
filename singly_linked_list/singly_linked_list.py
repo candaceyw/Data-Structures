@@ -65,3 +65,20 @@ class LinkedList:
             # otherwise, go to the next node
             current_node = current_node.next_node
         return False
+
+    def get_max(self):
+        if self.head is None:
+            return None
+
+        max_so_far = self.head.get_value()
+
+        current = self.head.get_next()
+
+        while current is not None:
+            if current.get_value() > max_so_far:
+                max_so_far = current.get_value()
+
+            current = current.get_next()
+
+        return max_so_far
+
