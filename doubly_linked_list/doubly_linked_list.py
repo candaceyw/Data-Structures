@@ -60,10 +60,13 @@ class DoublyLinkedList:
         new_node = ListNode(value, None, None)
         # check if the DLL is empty:
         if not self.head and not self.tail:
+            # set the head and tail to equal new node
             self.head = new_node
             self.tail = new_node
             self.length += 1
         else:
+            # the list already has elements in it
+            # make new node's next value point to current head
             new_node.next = self.head
             self.head.prev = new_node
             self.head = new_node
@@ -106,6 +109,8 @@ class DoublyLinkedList:
     List and inserts it as the new head node of the List."""
 
     def move_to_front(self, node):
+        if node is self.head:
+            return
         # remove node
         self.delete(node)
         # insert to head
@@ -123,13 +128,35 @@ class DoublyLinkedList:
     """Removes a node from the list and handles cases where
     the node was the head or the tail"""
 
+    # def delete(self, node):
+    #     if node == self.head:
+    #         self.remove_from_head()
+    #     elif node == self.tail:
+    #         self.remove_from_tail()
+    #     else:
+    #         node.delete()
+
     def delete(self, node):
-        if node == self.head:
-            self.remove_from_head()
-        elif node == self.tail:
-            self.remove_from_tail()
+        # the list is empty - do nothing
+        if self.head is None and self.tail is None:
+            return
+        # the list is only one node
+        self.length -= 1
+        if self.head == self.tail and node == self.head:
+            self.head = None
+            self.tail = None
+        # the node is the HEAD node( so make sure we handing the head pointer correctly)
+        if self.head == node:
+            self.head = node.next
+            node.delete()
+        # the node is the TAIL node (make sure tail is handled correctly)
+        if self.tail == node:
+            self.tail = node.next
+            node.delete()
+        # the node is just some node in the list
         else:
             node.delete()
+
 
     """Returns the highest value currently in the list"""
 
