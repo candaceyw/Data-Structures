@@ -19,27 +19,23 @@ class BSTNode:
 
     # Insert the given value into the tree
     def insert(self, value):
-        # compare the value to the root's value to determine which direction
-        # we're gonna go in
-        # if the value < root's value
-        
+        # if node is empty return value
+        if self.value is None:
+            return value
+        # if value is < less than self.value
+        if value < self.value:
             # go left
-            # how do we go left?
-            # we have to check if there is another node on the left side
-
-                # then self.left is a Node
-                # now what?
-
-                # then we can park the value here
-        # else the value >= root's value
-
+            # check if left has value
+            if self.left:
+                self.left.insert(value)
+            else:
+                self.left = BSTNode(value)
+        else:
             # go right
-            # how do we go right?
-            # we have to check if there is another node on the right side
-
-                # then self.right is a Node
-
-
+            if self.right:
+                self.right.insert(value)
+            else:
+                self.right = BSTNode(value)
 
     # Return True if the tree contains the value
     # False if it does not
@@ -68,21 +64,11 @@ class BSTNode:
 
     # Return the maximum value found in the tree
     def get_max(self):
-        if not self.right:
-            return self.value
-        return self.right.get_max()
+        pass
 
     # Call the function `fn` on the value of each node
     def for_each(self, fn):
-        # current node
-        currentNode = self
-        fn(currentNode.value)
-        if self.left:
-            nextLeft = self.left
-            nextLeft.for_each(fn)
-        if self.right:
-            nextRight = self.right
-            nextRight.for_each(fn)
+        pass
 
     # Part 2 -----------------------
 
@@ -111,7 +97,6 @@ class BSTNode:
     # Print Post-order recursive DFT
     def post_order_dft(self, node):
         pass
-
 
 # bst = BSTNode(1)
 # bst.insert(8)
