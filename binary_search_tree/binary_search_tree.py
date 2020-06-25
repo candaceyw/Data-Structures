@@ -19,23 +19,27 @@ class BSTNode:
 
     # Insert the given value into the tree
     def insert(self, value):
-        # if node is empty return value
-        if self.value is None:
-            return value
+
+        # if value < self.value and self.left is None:
+        #     self.left = BSTNode(value)
+        # if value >= self.value and self.right is None:
+        #     self.right = BSTNode(value)
+
         # if value is < less than self.value
         if value < self.value:
             # go left
             # check if left has value
-            if self.left:
-                self.left.insert(value)
-            else:
+            if self.left is None:
                 self.left = BSTNode(value)
-        else:
-            # go right
-            if self.right:
-                self.right.insert(value)
             else:
+                self.left.insert(value)
+
+            # go right
+        if value >= self.value:
+            if self.right is None:
                 self.right = BSTNode(value)
+            else:
+                self.right.insert(value)
 
     # Return True if the tree contains the value
     # False if it does not
@@ -45,7 +49,7 @@ class BSTNode:
         # compare the target to current value
         # if current value >= target
         # found = False
-        if self.value > target:
+        if self.value >= target:
             # check the left subtree
             # if you cannot go left, return false
             if self.left is None:
@@ -57,44 +61,72 @@ class BSTNode:
             if self.right is None:
                 return False
             found = self.right.contains(target)
-            return found
+
+        return found
 
     # Return the maximum value found in the tree
     def get_max(self):
-        current = self
+        if self.right is None:
+            return self.value
+        return self.right.get_max()
         # check that there are values on right
         # while there are values
-        while current.right is not None:
-            current = current.right
-        return current.value
+
+        # current = self
+        #
+        # while current.right is not None:
+        #     current = current.right
+        # return current.value
 
     # Call the function `fn` on the value of each node
     def for_each(self, fn):
         fn(self.value)
         # if exists check left
         if self.left is not None:
+            # call .for_each(fn)
             self.left.for_each(fn)
-
-        #call .for_each(fn)
-        #check right
+        # check right
         if self.right is not None:
+            # call .for_each(fn)
             self.right.for_each(fn)
 
     # Part 2 -----------------------
 
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
-    def in_order_print(self, node):
-        pass
+    def in_order_print(self, node=None):
+        # if self has a 'left', self is BIGGER
+        if self.left:
+            self.left.in_order_print(self)
+
+        print(self.value)
+
+        # if self has a 'right', self is SMALLER
+        if self.right:
+            self.right.in_order_print(self)
 
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
-    def bft_print(self, node):
+    def bft_print(self, node=None):
+        # create a queue for nodes
+        que = [self]
+        # add the first node to the queue
+        # while queue is not empty
+            # remove the first node from the queue
+            # print the removed node
+            # add all children into the queue
         pass
 
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
     def dft_print(self, node):
+        # create a stack for nodes
+        # add the first node to the stack
+        # while the stack is not empty
+            # get the current node from teh top of the stack
+            # print that node
+            # add all children to the stack
+            # keep in mind, the order you add the children, will matter
         pass
 
     # Stretch Goals -------------------------
@@ -108,12 +140,12 @@ class BSTNode:
     def post_order_dft(self, node):
         pass
 
-# bst = BSTNode(1)
-# bst.insert(8)
-# bst.insert(5)
-# bst.insert(7)
-# bst.insert(6)
-# bst.insert(3)
-# bst.insert(4)
-# bst.insert(2)
-# bst.bft_print()
+bst = BSTNode(1)
+bst.insert(8)
+bst.insert(5)
+bst.insert(7)
+bst.insert(6)
+bst.insert(3)
+bst.insert(4)
+bst.insert(2)
+bst.bft_print()
