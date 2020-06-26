@@ -1,3 +1,5 @@
+from doubly_linked_list import doubly_linked_list
+
 class LRUCache:
     """
     Our LRUCache class keeps track of the max number of nodes it
@@ -7,7 +9,8 @@ class LRUCache:
     to every node stored in the cache.
     """
     def __init__(self, limit=10):
-        pass
+        self.limit = limit
+        self.cache = doubly_linked_list
 
     """
     Retrieves the value associated with the given key. Also
